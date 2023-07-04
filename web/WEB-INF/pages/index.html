@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+  <head id="headerid1">
+    <base target="_self" />
+    <title>学期理论课表</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="expires" content="0" />
+    <meta http-equiv="keywords" content="" />
+    <meta http-equiv="description" content="" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
+    <link th:href="@{/static/css/common.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/static/css/blue.css}" rel="stylesheet" type="text/css" id="link_theme" />
+    <link th:href="@{/static/css/workstation.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/static/css/personal_page_style.css}" rel="stylesheet" type="text/css" />
+  </head>
+
+
+  <body th:background="@{/static/image/R.jpg}"
+        style="background-repeat:no-repeat;
+               background-attachment:fixed;
+               background-size:100% 100%; ">
+
+
+  <div class="Nsb_menu_pw">
+    <div class="fenlan">
+      <ul>
+        <li title="个人主页">
+          <a id="personal_page" th:href="@{/detail.do}">个人主页</a>
+        </li>
+
+        <li title="课表查询">
+          <a id="course_search" th:href="@{/course.do}">课表查询</a>
+        </li>
+      </ul>
+    </div>
+
+    <div id="divFirstMenuClass" class="Nsb_menu menu_cn">
+
+    </div>
+  </div>
+    <div class="Nsb_pw">
+      <div class="Nsb_layout_r">
+        <form
+          action=""
+          name="FormPrint"
+          id="FormPrint"
+          method="post"
+          target="ifrmPrint"
+        ></form>
+        <form name="Form1" id="Form1" method="post" target="_self" th:action="@{/course.do}">
+          <input type="hidden" name="operate" id="cj0701id" value="index" />
+          <div>
+            <div class="weeklist">
+            <font size="3px">周次：</font><select
+              name="week"
+              id="zc"
+              onchange="javascript:document.getElementById('Form1').submit();"
+            >
+              <option value="" th:text="|第${session.week}周|">请选择</option>
+              <option value="1">第1周</option>
+              <option value="2">第2周</option>
+              <option value="3">第3周</option>
+              <option value="4">第4周</option>
+              <option value="5">第5周</option>
+              <option value="6">第6周</option>
+              <option value="7">第7周</option>
+              <option value="8">第8周</option>
+              <option value="9">第9周</option>
+              <option value="10">第10周</option>
+              <option value="11">第11周</option>
+              <option value="12">第12周</option>
+              <option value="13">第13周</option>
+              <option value="14">第14周</option>
+              <option value="15">第15周</option>
+              <option value="16">第16周</option>
+              <option value="17">第17周</option>
+              <option value="18">第18周</option>
+              <option value="19">第19周</option>
+              <option value="20">第20周</option>
+              <option value="21">第21周</option>
+              <option value="22">第22周</option>
+              <option value="23">第23周</option>
+              <option value="24">第24周</option>
+              <option value="25">第25周</option>
+              <option value="26">第26周</option>
+              <option value="27">第27周</option>
+              <option value="28">第28周</option>
+              <option value="29">第29周</option>
+              <option value="30">第30周</option>
+            <!--
+        <input type="button" class="button" id="btnShenshen" value="返 回" onclick="javascript:window.location.href='/jsxsd/framework/main.jsp';"/>
+        -->
+            <input
+              type="hidden"
+            />
+          　</div>
+          <table
+            id="kbtable"
+            border="1"
+            width="100%"
+            cellspacing="0"
+            cellpadding="0"
+            height="450px"
+            class="Nsb_r_list Nsb_table"
+          >
+            <tr>
+              <th width="70" height="28" align="center">&nbsp;</th>
+              <th width="123" height="28" align="center">星期一</th>
+              <th width="123" height="28" align="center">星期二</th>
+              <th width="123" height="28" align="center">星期三</th>
+              <th width="124" height="28" align="center">星期四</th>
+              <th width="124" height="28" align="center">星期五</th>
+              <th width="124" height="28" align="center">星期六</th>
+              <th width="124" height="28" align="center">星期日</th>
+            </tr>
+
+            <!--
+         div中填写：
+         ‘’‘
+         [课程名]<br/><font title='老师'>[教师名]</font><br/><font title='周次(节次)'>[begin周]-[end周]+(周)</font><br/><font title='教室'>[上课地点]</font><br/>
+         ’‘’
+      -->
+
+            <tr>
+              <th width="70" height="28" align="center">第1，2节&nbsp;</th>
+              <td width="123" height="28" align="center" valign="top" th:each="lesson : ${session.lesson1}">
+                <div id="1-1" class="kbcontent1" th:unless="${lesson==null}">&nbsp;<font th:text="${lesson.getCname()}">[课程名]</font><br/><font title='老师' th:text="${lesson.getTeacher()}">[教师名]</font><br/><font title='周次(节次)' th:text="|${lesson.getBegin()}-${lesson.getEnd()}周|">[begin周]-[end周]+(周)</font><br/><font title='教室' th:text="${lesson.getLocation()}">[上课地点]</font><br/></div>
+                <div id="1-1" class="kbcontent1" th:if="${lesson==null}">&nbsp;<br/></div>
+              </td>
+            </tr>
+
+            <tr>
+              <th width="70" height="28" align="center">第3，4节&nbsp;</th>
+              <td width="123" height="28" align="center" valign="top" th:each="lesson : ${session.lesson2}">
+                <div id="1-1" class="kbcontent1" th:unless="${lesson==null}">&nbsp;<font th:text="${lesson.getCname()}">[课程名]</font><br/><font title='老师' th:text="${lesson.getTeacher()}">[教师名]</font><br/><font title='周次(节次)' th:text="|${lesson.getBegin()}-${lesson.getEnd()}周|">[begin周]-[end周]+(周)</font><br/><font title='教室' th:text="${lesson.getLocation()}">[上课地点]</font><br/></div>
+                <div id="1-1" class="kbcontent1" th:if="${lesson==null}">&nbsp;<br/></div>
+              </td>
+            </tr>
+
+            <tr>
+              <th width="70" height="28" align="center">第5，6节&nbsp;</th>
+              <td width="123" height="28" align="center" valign="top" th:each="lesson : ${session.lesson3}">
+                <div id="1-1" class="kbcontent1" th:unless="${lesson==null}">&nbsp;<font th:text="${lesson.getCname()}">[课程名]</font><br/><font title='老师' th:text="${lesson.getTeacher()}">[教师名]</font><br/><font title='周次(节次)' th:text="|${lesson.getBegin()}-${lesson.getEnd()}周|">[begin周]-[end周]+(周)</font><br/><font title='教室' th:text="${lesson.getLocation()}">[上课地点]</font><br/></div>
+                <div id="1-1" class="kbcontent1" th:if="${lesson==null}">&nbsp;<br/></div>
+              </td>
+            </tr>
+
+            <tr>
+              <th width="70" height="28" align="center">第7，8节&nbsp;</th>
+              <td width="123" height="28" align="center" valign="top" th:each="lesson : ${session.lesson4}">
+                <div id="1-1" class="kbcontent1" th:unless="${lesson==null}">&nbsp;<font th:text="${lesson.getCname()}">[课程名]</font><br/><font title='老师' th:text="${lesson.getTeacher()}">[教师名]</font><br/><font title='周次(节次)' th:text="|${lesson.getBegin()}-${lesson.getEnd()}周|">[begin周]-[end周]+(周)</font><br/><font title='教室' th:text="${lesson.getLocation()}">[上课地点]</font><br/></div>
+                <div id="1-1" class="kbcontent1" th:if="${lesson==null}">&nbsp;<br/></div>
+              </td>
+            </tr>
+
+            <tr>
+              <th width="70" height="28" align="center">第9，10,11节&nbsp;</th>
+              <td width="123" height="28" align="center" valign="top" th:each="lesson : ${session.lesson5}">
+                <div id="1-1" class="kbcontent1" th:unless="${lesson==null}">&nbsp;<font th:text="${lesson.getCname()}">[课程名]</font><br/><font title='老师' th:text="${lesson.getTeacher()}">[教师名]</font><br/><font title='周次(节次)' th:text="|${lesson.getBegin()}-${lesson.getEnd()}周|">[begin周]-[end周]+(周)</font><br/><font title='教室' th:text="${lesson.getLocation()}">[上课地点]</font><br/></div>
+                <div id="1-1" class="kbcontent1" th:if="${lesson==null}">&nbsp;<br/></div>
+              </td>
+            </tr>
+
+            <tr>
+              <th width="70" height="28" align="center">备注:</th>
+              <td colspan="7" align="left"></td>
+            </tr>
+          </table>
+        </form>
+      </div>
+    </div>
+    <br />
+
+
+  </body>
+</html>

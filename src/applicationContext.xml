@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE beans [
+    <!ELEMENT beans (bean*)>
+    <!ELEMENT bean (property*)>
+    <!ELEMENT property (#PCDATA)>
+
+    <!ATTLIST bean id ID #REQUIRED>
+    <!ATTLIST bean class CDATA #IMPLIED>
+    <!ATTLIST property name CDATA #IMPLIED>
+    <!ATTLIST property ref IDREF #IMPLIED>
+]>
+
+<beans>
+    <bean id="courseDAO" class="com.dao.impl.CourseDAOImpl"/>
+    <bean id="optionalCourseDAO" class="com.dao.impl.OptionalCourseDAOImpl"/>
+    <bean id="professionDAO" class="com.dao.impl.ProfessionDAOImpl"/>
+    <bean id="proToCourDAO" class="com.dao.impl.ProToCourDAOImpl"/>
+    <bean id="studentDAO" class="com.dao.impl.StudentDAOImpl"/>
+    <bean id="stuToOcDAO" class="com.dao.impl.StuToOcDAOImpl"/>
+
+    <bean id="courseService" class="com.service.impl.CourseServiceImpl">
+        <property name="courseDAO" ref="courseDAO"/>
+        <property name="proToCourDAO" ref="proToCourDAO"/>
+    </bean>
+    <bean id="optionalCourseService" class="com.service.impl.OptionalCourseServiceImpl">
+        <property name="optionalCourseDAO" ref="optionalCourseDAO"/>
+        <property name="stuToOcDAO" ref="stuToOcDAO"/>
+    </bean>
+    <bean id="professionService" class="com.service.impl.ProfessionServiceImpl">
+        <property name="professionDAO" ref="professionDAO"/>
+    </bean>
+    <bean id="studentService" class="com.service.impl.StudentServiceImpl">
+        <property name="studentDAO" ref="studentDAO"/>
+    </bean>
+
+    <bean id="course" class="com.controller.CourseController">
+        <property name="courseService" ref="courseService"/>
+        <property name="optionalCourseService" ref="optionalCourseService"/>
+    </bean>
+    <bean id="detail" class="com.controller.DetailController"/>
+    <bean id="student" class="com.controller.StudentController">
+        <property name="studentService" ref="studentService"/>
+        <property name="courseService" ref="courseService"/>
+        <property name="optionalCourseService" ref="optionalCourseService"/>
+        <property name="professionService" ref="professionService"/>
+    </bean>
+    <bean id="page" class="myssm.myspringmvc.PageController"/>
+</beans>
